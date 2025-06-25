@@ -15,12 +15,12 @@ services:
       - db
   web:
     container_name: agent_web
-    image: httpd:alpine
+    build: ./apache
     ports:
       - "8123:80"
     volumes:
       - ./laravel:/var/www
-      - ./apache/proxy.conf:/usr/local/apache2/conf/httpd.conf:ro
+      - ./apache/proxy.conf:/usr/local/apache2/conf/conf.d/proxy.conf:ro
     networks:
       - appnet
     depends_on:
