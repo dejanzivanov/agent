@@ -20,6 +20,11 @@ logs:
 shell:
 	$(COMPOSE) exec app sh
 
+force:
+	$(COMPOSE) down -v
+	$(COMPOSE) build --no-cache
+	$(COMPOSE) up -d
+
 fclean:
 	$(COMPOSE) down -v
 	docker ps -a --filter "name=agent_" -q | xargs -r docker rm -f

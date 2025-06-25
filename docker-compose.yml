@@ -1,4 +1,5 @@
 version: '3.8'
+
 services:
   app:
     container_name: agent_app
@@ -7,17 +8,18 @@ services:
       - ./laravel:/var/www
     command: ./start.sh
     ports:
-      - "8000:8000"
-      - "5173:5173"
+      - "5173:5173"      # Vite (or npm run dev) port, if needed
+      - "8000:8000"      # Artisan serve (Laravel)
     networks:
       - appnet
     depends_on:
       - db
+
   web:
     container_name: agent_web
-    build: ./apache
+    image: httpd:alpine
     ports:
-      - "8123:80"
+      - "8123:80"          # Host 8123 maps to Apache 80 in container
     volumes:
       - ./laravel:/var/www
       - ./apache/proxy.conf:/usr/local/apache2/conf/conf.d/proxy.conf:ro
@@ -25,6 +27,7 @@ services:
       - appnet
     depends_on:
       - app
+
   db:
     container_name: agent_db
     image: mysql:8
@@ -37,7 +40,9 @@ services:
       - dbdata:/var/lib/mysql
     networks:
       - appnet
+
 networks:
   appnet:
+
 volumes:
   dbdata:
