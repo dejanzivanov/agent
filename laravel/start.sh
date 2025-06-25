@@ -3,6 +3,11 @@ set -e
 
 cd /var/www
 
+if [ ! -f .env ]; then
+    cp .env.example .env
+    php artisan key:generate
+fi
+
 if [ ! -d vendor ]; then
     composer install --no-interaction
 fi
