@@ -1,5 +1,5 @@
 import './bootstrap';
 import { createApp } from 'vue';
-import Example from './components/Example.vue';
+import ColorButtons from './components/ColorButtons.vue';
 
-createApp(Example).mount('#app');
+createApp(ColorButtons).mount('#app');
