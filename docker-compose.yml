@@ -19,10 +19,12 @@ services:
     container_name: agent_web
     image: httpd:alpine
     ports:
-      - "8123:80"          # Host 8123 maps to Apache 80 in container
+      - "127.0.0.1:8123:80"          # Host 8123 maps to Apache 80 in container
     volumes:
-      - ./laravel:/var/www
-      - ./apache/proxy.conf:/usr/local/apache2/conf/conf.d/proxy.conf:ro
+     - ./laravel:/var/www
+     - ./apache/httpd.conf:/usr/local/apache2/conf/httpd.conf:ro
+     - ./apache/proxy.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf:ro
+     - ./empty:/usr/local/apache2/htdocs
     networks:
       - appnet
     depends_on:
