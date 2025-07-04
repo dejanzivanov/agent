@@ -27,9 +27,9 @@ force:
 
 fclean:
 	$(COMPOSE) down -v
-	docker ps -a --filter "name=agent_" -q | xargs -r docker rm -f
-	docker volume ls --filter "name=agent_" -q | xargs -r docker volume rm
-	docker network ls --filter "name=agent_" -q | xargs -r docker network rm
+	docker ps -a --filter "name=setup_" -q | xargs -r docker rm -f
+	docker volume ls --filter "name=setup_" -q | xargs -r docker volume rm
+	docker network ls --filter "name=setup_" -q | xargs -r docker network rm
 
 # BEGINNING OF THE ARTISAN COMMANDS
 
