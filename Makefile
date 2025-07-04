@@ -1,4 +1,3 @@
-git restore --source codex/rework-welcome.blade.php-with-vue-component Makefile
 COMPOSE=docker compose
 
 build:
