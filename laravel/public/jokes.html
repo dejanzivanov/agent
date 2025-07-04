@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Random Joke</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding-top: 50px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+/* Animation when active */
+button.active {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+#joke {
+    margin-top: 20px;
+    font-size: 24px;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+#joke.show {
+    opacity: 1;
+}
+</style>
+</head>
+<body>
+    <button id="jokeBtn">Show Joke</button>
+    <button id="langBtn">Español</button>
+    <div id="joke"></div>
+
+<script>
+const jokes = {
+    en: [
+        "Why did the chicken cross the road? To get to the other side!",
+        "Why don't scientists trust atoms? Because they make up everything.",
+        "Why did the scarecrow win an award? Because he was outstanding in his field."
+    ],
+    es: [
+        "¿Por qué cruzó el pollo la carretera? ¡Para llegar al otro lado!",
+        "¿Qué le dijo un pez a otro pez? ¡Nada, nada!",
+        "¿Por qué se puso triste el libro de matemáticas? Porque tenía demasiados problemas."
+    ]
+};
+
+let currentLang = 'en';
+const jokeBtn = document.getElementById('jokeBtn');
+const langBtn = document.getElementById('langBtn');
+const jokeDiv = document.getElementById('joke');
+let jokeTimeout;
+
+function showJoke() {
+    // Clear existing timeout if any
+    if (jokeTimeout) {
+        clearTimeout(jokeTimeout);
+    }
+
+    const arr = jokes[currentLang];
+    const randomJoke = arr[Math.floor(Math.random() * arr.length)];
+    jokeDiv.textContent = randomJoke;
+
+    // Show with fade-in
+    jokeDiv.classList.add('show');
+    jokeBtn.classList.add('active');
+
+    // Hide after 10 seconds with fade-out
+    jokeTimeout = setTimeout(() => {
+        jokeDiv.classList.remove('show');
+        jokeBtn.classList.remove('active');
+    }, 10000); // 10 seconds
+}
+
+function toggleLang() {
+    currentLang = currentLang === 'en' ? 'es' : 'en';
+    langBtn.textContent = currentLang === 'en' ? 'Español' : 'English';
+}
+
+jokeBtn.addEventListener('click', showJoke);
+langBtn.addEventListener('click', toggleLang);
+</script>
+</body>
+</html>
